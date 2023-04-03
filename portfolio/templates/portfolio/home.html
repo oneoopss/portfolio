@@ -1,18 +1,57 @@
-Всем привет
-<br>
+{% extends 'portfolio/base.html' %}
+{% block content %}
 {% load static %}
-<a href="">Резюме</a>
-<img src="{% static 'portfolio/my_photo.JPEG' %}", height="300", width="400">
+<style>
+
+.item {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+}
+
+.center {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.no-link {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
+<h1 class="center display-5">сайт oneoopss</h1>
+
+
+<button type="button" class="btn btn-info"><a href="{% url 'blog:blog' %}"class="no-link">Все блоги</a></button>
+<button type="button" class="btn btn-info"><a href="{% static 'portfolio/resume.pdf' %}"class="no-link"target="_blank">Резюме</a></button>
+
+<div class="center"><img src="{% static 'portfolio/my_photo.JPEG' %}", height="300", width="400", ></div>
+
+
+<h1 class="display-6">Мои проекты: </h1>
+<hr>
+
 
 {% for  project in projects %}
+<div class="item">
 
-    <h2>{{ project.title }}</h2>
+    <p class="display-6">{{ project.title }}</p>
     <p>{{ project.discription }}</p>
-    <img src="{{ project.image.url }}", height="100", width="100">
-    
-    {% if project.url %}
-        <br>
-        <a href="{{ project.url }}">Link</a>
-    {% endif %}
 
+
+
+    {% if project.url %}
+        <a href="{{ project.url }}">
+            <img src="{{ project.image.url }}", height="100", width="100">
+        </a>
+
+    <!-- <a href="{{ project.url }}">Link</a> -->
+    {% else %}
+    <img src="{{ project.image.url }}", height="100", width="100">
+    {% endif %}
+</div>
 {% endfor %}
+
+{% endblock %}
+
